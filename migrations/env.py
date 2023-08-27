@@ -7,7 +7,8 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from database import Base, DATABASE_URL
+from database import Base
+from config import settings
 from hotels.models import Hotels
 
 
@@ -17,7 +18,7 @@ sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
 # access to the values within the .ini file in use.
 config = context.config
 
-config.set_main_option("sqlalchemy.url", f"{DATABASE_URL}?async_fallback=True")
+config.set_main_option("sqlalchemy.url", f"{settings.database_url}?async_fallback=True")
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
