@@ -10,6 +10,9 @@ from alembic import context
 from database import Base
 from config import settings
 from hotels.models import Hotels
+from bookings.models import Bookings
+from users.models import Users
+from rooms.models import Rooms
 
 
 sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
