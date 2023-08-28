@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from sqlalchemy import select
 
 from bookings.models import Bookings
+from bookings.schemas import SBooking
 from bookings.services import BookingService
 from database import async_session_maker
 
@@ -12,7 +13,7 @@ router = APIRouter(
 
 
 @router.get("")
-async def get_bookings():
+async def get_bookings() -> list[SBooking]:
     return await BookingService.find_all()
 
 
