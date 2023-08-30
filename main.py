@@ -6,16 +6,12 @@ from typing import Optional
 from pydantic import BaseModel
 
 from bookings.router import router as router_bookings
+from users.router import router as router_users
 
 app = FastAPI()
 
+app.include_router(router_users)
 app.include_router(router_bookings)
-
-
-# class SHotel(BaseModel):
-#     address: str
-#     name: str
-#     stars: int
 
 
 class HotelsSearchArgs:
@@ -35,15 +31,7 @@ class HotelsSearchArgs:
 
 
 @app.get('/hotels')
-async def get_hotels(
-        search_args: HotelsSearchArgs = Depends()
-):
-    # hotels = [
-    #     {"address": "ул. Строителей, д. 22",
-    #      "name": "Super Resort",
-    #      "stars": 5,
-    #      },
-    # ]
+async def get_hotels(search_args: HotelsSearchArgs = Depends()):
     return search_args
 
 
