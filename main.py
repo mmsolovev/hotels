@@ -6,6 +6,7 @@ from typing import Optional
 from pydantic import BaseModel
 
 from bookings.router import router as router_bookings
+from bookings.schemas import SBooking
 from users.router import router as router_users
 
 app = FastAPI()
@@ -33,12 +34,6 @@ class HotelsSearchArgs:
 @app.get('/hotels')
 async def get_hotels(search_args: HotelsSearchArgs = Depends()):
     return search_args
-
-
-class SBooking(BaseModel):
-    room_id: int
-    date_from: date
-    date_to: date
 
 
 @app.post('/bookings')
