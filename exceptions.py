@@ -37,7 +37,3 @@ class IncorrectTokenFormatException(BookingException):
 class UserIsNotExistsException(BookingException):
     status_code = status.HTTP_401_UNAUTHORIZED
     detail = "401 Not Found"
-
-class RoomCannotBeBookedException(BookingException):
-    status_code = status.HTTP_409_CONFLICT
-    detail = "No free room available"
