@@ -7,6 +7,7 @@ from bookings.models import Bookings
 from bookings.schemas import SBooking
 from bookings.services import BookingService
 from database import async_session_maker
+from exceptions import RoomCannotBeBookedException
 from users.dependencies import get_current_user
 from users.models import Users
 
@@ -33,4 +34,6 @@ async def add_booking(room_id: int,
                       date_to: date,
                       user: Users = Depends(get_current_user),
                       ):
-    await BookingService.add(user.id, room_id, date_from, date_to)
+    booking = await BookingService.add(user.id, room_id, date_from, date_to)
+    if not booking:
+        raise RoomCannotBeBookedException()
