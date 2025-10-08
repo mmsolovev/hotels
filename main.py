@@ -4,15 +4,29 @@ from fastapi import FastAPI, Query, Depends
 from typing import Optional
 
 from pydantic import BaseModel
+from starlette.middleware.cors import CORSMiddleware
 
 from bookings.router import router as router_bookings
 from bookings.schemas import SBooking
 from users.router import router as router_users
 
+from pages.router import router as router_pages
+
 app = FastAPI()
 
 app.include_router(router_users)
 app.include_router(router_bookings)
+app.include_router(router_pages)
+
+origins = ['http://localhost:3000']
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class HotelsSearchArgs:
@@ -39,3 +53,5 @@ async def get_hotels(search_args: HotelsSearchArgs = Depends()):
 @app.post('/bookings')
 async def add_booking(booking: SBooking):
     pass
+
+
