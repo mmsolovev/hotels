@@ -12,11 +12,16 @@ from fastapi_cache.decorator import cache
 
 from redis import asyncio as aioredis
 
-from pydantic import BaseModel
+from sqladmin import Admin, ModelView
+
 from starlette.middleware.cors import CORSMiddleware
 
+from admin.auth import authentication_backend
+from admin.views import UsersAdmin, BookingsAdmin
 from bookings.router import router as router_bookings
 from bookings.schemas import SBooking
+from database import engine
+from users.models import Users
 from users.router import router as router_users
 
 from pages.router import router as router_pages
@@ -83,3 +88,9 @@ async def add_booking(booking: SBooking):
 @cache(expire=60)
 async def index():
     return dict(hello="world")
+
+
+admin = Admin(app, engine, authentication_backend=authentication_backend)
+
+admin.add_view(UsersAdmin)
+admin.add_view(BookingsAdmin)
