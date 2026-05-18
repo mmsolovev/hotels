@@ -1,8 +1,6 @@
 from fastapi import APIRouter, UploadFile
 import shutil
 
-from sqlalchemy.orm import defer
-
 from tasks.tasks import process_pic
 
 router = APIRouter(
