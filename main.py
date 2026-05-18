@@ -12,7 +12,7 @@ from fastapi_cache.decorator import cache
 
 from redis import asyncio as aioredis
 
-from sqladmin import Admin, ModelView
+from sqladmin import Admin
 
 from starlette.middleware.cors import CORSMiddleware
 
@@ -21,10 +21,10 @@ from admin.views import UsersAdmin, BookingsAdmin
 from bookings.router import router as router_bookings
 from bookings.schemas import SBooking
 from database import engine
-from users.models import Users
 from users.router import router as router_users
 
 from pages.router import router as router_pages
+from images.router import router as router_images
 
 
 @asynccontextmanager
@@ -45,6 +45,7 @@ async def get_cache():
 app.include_router(router_users)
 app.include_router(router_bookings)
 app.include_router(router_pages)
+app.include_router(router_images)
 
 origins = ['http://localhost:3000']
 

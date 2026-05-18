@@ -1,0 +1,10 @@
+fastapi
+pydantic-settings
+redis
+fastapi-cache[redis]
+sqladmin
+uvicorn
+gunicorn
+asyncpg
+alembic
+pytest
